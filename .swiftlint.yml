@@ -1,0 +1,37 @@
+included:
+  - Displaybase
+  - DisplaybaseTests
+  - scripts
+
+excluded:
+  - build
+  - site
+
+disabled_rules:
+  # the code uses trailing commas in multiline literals
+  - trailing_comma
+  # names and output from other devices aren't always utf-8, and a lossy string beats none
+  - optional_data_string_conversion
+
+opt_in_rules:
+  - empty_count
+  - empty_string
+  - first_where
+  - contains_over_first_not_nil
+  - sorted_first_last
+  - unneeded_parentheses_in_closure_argument
+  - vertical_whitespace_closing_braces
+
+# the layout code is geometry, so x, y, a, b and pc (the other computer) read fine
+identifier_name:
+  min_length: 1
+  excluded: [id]
+
+# lines in the controller and tests run long on purpose
+line_length:
+  warning: 160
+  error: 200
+  ignores_comments: true
+  ignores_urls: true
+
+reporter: "xcode"

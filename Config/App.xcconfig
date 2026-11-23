@@ -1,0 +1,4 @@
+// signs locally unless Config/Local.xcconfig says otherwise
+DISPLAYBASE_TEAM =
+DISPLAYBASE_IDENTITY = -
+#include? "Local.xcconfig"

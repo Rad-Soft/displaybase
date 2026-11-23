@@ -1,0 +1,34 @@
+name: Monitor report
+description: Tell us whether your monitor works
+labels: [monitor]
+body:
+  - type: input
+    id: model
+    attributes:
+      label: Monitor
+      description: The exact model.
+    validations:
+      required: true
+  - type: dropdown
+    id: result
+    attributes:
+      label: Does it work?
+      options:
+        - Goes over and comes back
+        - Goes over but doesn't come back
+        - Doesn't switch
+        - Doesn't show up in setup
+    validations:
+      required: true
+  - type: input
+    id: inputs
+    attributes:
+      label: Inputs
+      description: The port the Mac uses and the port the other computer uses.
+    validations:
+      required: true
+  - type: input
+    id: between
+    attributes:
+      label: Anything in between?
+      description: A dock, hub, adapter or KVM.

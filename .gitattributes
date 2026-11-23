@@ -1,0 +1,6 @@
+* text=auto eol=lf
+*.webp binary
+*.png binary
+# signed byte for byte
+site/public/appcast.xml -text
+site/bun.lock linguist-generated

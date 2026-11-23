@@ -1,0 +1,40 @@
+name: Something's broken
+description: A screen didn't move, didn't come back, or something else went wrong
+labels: [bug, needs triage]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what it did instead.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Displaybase version
+      description: In Settings, under General.
+    validations:
+      required: true
+  - type: input
+    id: mac
+    attributes:
+      label: Mac and macOS
+      placeholder: MacBook Pro M4, macOS 26.1
+    validations:
+      required: true
+  - type: textarea
+    id: desk
+    attributes:
+      label: Your desk
+      description: Each monitor's model, which port each computer uses, and any dock, hub or switch in between.
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Log
+      description: |
+        Run this, make it happen again, then paste what it printed. Remove anything you'd rather not share.
+        `log stream --predicate 'subsystem == "com.radsoft.displaybase"'`
+      render: text

@@ -1,0 +1,4 @@
+project: Displaybase.xcodeproj
+schemes:
+  - Displaybase
+disable_update_check: true

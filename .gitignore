@@ -1,0 +1,13 @@
+.DS_Store
+build/
+*.xcodeproj/
+xcuserdata/
+Config/Local.xcconfig
+brand/logo-sheets/
+node_modules/
+.next/
+.vercel/
+.env*
+dist/
+.claude/
+site/public/fonts/
