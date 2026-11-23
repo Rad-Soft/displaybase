@@ -54,15 +54,8 @@ Each job writes a `summary.json` and a job summary. On a pull request, one job r
 
 ## Pull requests from forks
 
-CI does not run for pull requests from forks. The runners are machines on a private home network, and a pull request can change the workflow and the scripts it runs, so fork code must never reach them. Every job checks that the pull request's head repository is this repository, and is skipped otherwise. Nothing uses `pull_request_target`, and no job uses secrets.
+Everything runs on GitHub's own runners, so a pull request from a fork gets the same checks as any other. A maintainer approves the run first, because the repository requires approval for everyone outside it. Nothing uses `pull_request_target`, no job uses secrets, and the token is read only apart from the job that comments.
 
-The check in the workflow is not a security boundary on its own, because a fork's pull request runs the workflow file from its own branch and can delete the check. The boundary is in the repository settings, and the owner has to set it: under Settings, Actions, General, set "Fork pull request workflows from outside collaborators" to "Require approval for all outside collaborators", and keep the self-hosted runners in a runner group that only this repository can use.
+A fork's token can't comment, so those pull requests show the results in each job's summary instead of a comment.
 
-A skipped CI run on a fork pull request is expected. It does not mean the change failed.
-
-### What a maintainer does
-
-1. Read the whole diff first, including `.github/`, `Makefile`, `project.yml` and anything that runs at build time.
-2. If it looks safe, either run `make check` yourself on a Mac you trust, or push the branch to this repository and open a pull request from that branch. Same-repository pull requests run the full CI.
-3. Say what you ran in the pull request. If you pushed a copy, link back to the original and close one of the two.
-4. If the diff touches `.github/`, do not run it anywhere until you have read every changed line.
+Never add a self-hosted runner to this repository. A pull request can change the workflow and the scripts it runs.
