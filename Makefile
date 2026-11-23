@@ -36,7 +36,7 @@ scripts-test:
 	bun test ./.github/scripts/tests
 
 workflow-lint:
-	actionlint -config-file .github/scripts/actionlint.yaml
+	actionlint
 
 check: lint coverage site-check scripts-test workflow-lint
 

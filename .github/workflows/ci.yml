@@ -1,7 +1,6 @@
 name: CI
 
-# the runners sit on a home network, so a job only starts for code from this
-# repository. pull requests from forks skip every job; see docs/quality.md.
+# github's own runners, so code from forks never runs on a home network. see docs/quality.md.
 on:
   push:
     branches: [main]
@@ -17,9 +16,7 @@ concurrency:
 jobs:
   app:
     name: App tests and coverage
-    # head repo must be this repo: fork code never reaches the self-hosted runners
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: [self-hosted, swift]
+    runs-on: macos-26
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -44,9 +41,7 @@ jobs:
 
   lint:
     name: SwiftLint and Periphery
-    # head repo must be this repo: fork code never reaches the self-hosted runners
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: [self-hosted, swift]
+    runs-on: macos-26
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -74,9 +69,7 @@ jobs:
 
   site:
     name: Site checks
-    # head repo must be this repo: fork code never reaches the self-hosted runners
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: [self-hosted, universal]
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -103,9 +96,9 @@ jobs:
   comment:
     name: PR comment
     needs: [app, lint, site]
-    # head repo must be this repo, and only pull requests get a comment
+    # a fork's token can't comment, so those get the job summaries instead
     if: always() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: [self-hosted, universal]
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     permissions:
       contents: read
